@@ -1,0 +1,65 @@
+## Redirect from non-www to www (remove the two lines below to enable)
+#RewriteCond %{HTTP_HOST} !^www\. [NC]
+#RewriteRule ^(.*)$ http://www.%{HTTP_HOST}/$1 [R=301,L]
+
+## Disable *.ts files viewing from Frontend
+<FilesMatch "\.(ts)$">
+	order deny,allow
+	deny from all
+</FilesMatch>
+
+## Compression via TYPO3
+<FilesMatch "\.js\.gzip$">
+	AddType "text/javascript" .gzip
+</FilesMatch>
+<FilesMatch "\.css\.gzip$">
+	AddType "text/css" .gzip
+</FilesMatch>
+AddEncoding gzip .gzip
+
+## This affects Frontend and Backend to increase performance.
+## Send expired header to expire in the next 7 days
+<FilesMatch "\.(js|css)$">
+	<IfModule mod_expires.c>
+		ExpiresActive on
+		ExpiresDefault "access plus 7 days"
+	</IfModule>
+	FileETag MTime Size
+</FilesMatch>
+<filesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|swf)$">
+	<IfModule mod_expires.c>
+		ExpiresActive on
+		ExpiresDefault "access plus 7 days"
+	</IfModule>
+	FileETag MTime Size
+</filesMatch>
+
+## Settings for mod_rewrite
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+
+	## Change this path, if your TYPO3 installation is located in a subdirectory of the website root.
+	#RewriteBase /
+
+	## IMPORTANT: This rule has to be the very first RewriteCond in order to work!
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule ^(.+)\.(\d+)\.(php|js|css|png|jpg|gif|gzip|ico)$ $1.$3 [L]
+
+	## Stop rewrite processing, if we are in the typo3/ directory.
+	RewriteRule ^(typo3/|t3lib/|fileadmin/|typo3conf/|typo3temp/|uploads/|favicon\.ico) - [L]
+
+	## Redirect http://example.com/typo3 to http://example.com/typo3/index_re.php and stop the rewrite processing.
+	RewriteRule ^typo3$ typo3/index_re.php [L]
+
+	## # If the file/symlink/directory does not exist => Redirect to index.php.
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteCond %{REQUEST_FILENAME} !-l
+
+	## Main URL rewriting.
+	RewriteRule .* index.php [L]
+</IfModule>
+
+## Miscellaneous
+Options -Indexes

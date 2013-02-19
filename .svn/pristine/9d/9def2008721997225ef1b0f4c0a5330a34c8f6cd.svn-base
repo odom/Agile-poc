@@ -1,0 +1,32 @@
+This project sets up the User Acceptance Tests (UAT) environment for WebEssentials.
+
+The UAT are based on the requirements and are executed by a "Ruby":http://www.ruby-lang.org library
+called cucumber":http://cukes.info/
+
+
+# Installation
+
+0. Install vim, git and curl to install and configure other tools later:
+	sudo apt-get install vim git curl
+1. Install PhantomJS
+See https://github.com/jonleighton/poltergeist#installing-phantomjs
+2. Install XMLlib header for nokogiri requirements
+	sudo apt-get install libxslt-dev libxml2-dev
+See http://nokogiri.org/tutorials/installing_nokogiri.html
+3. Install RVM. See http://rvm.io
+This also installs Ruby 1.9.3 automatically.
+4. Install bundler
+  gem install bundler
+5. Run `bundle` to install all ruby libraries and dependencies
+6. Run `cucumber` to run the tests
+
+Please see `config/cucumber.yml` to change the target website eg. if you want to tests another project.
+
+If you want to run only particular feature tests call `cucumber` like this
+
+	cucumber features/smoke_test.feature
+
+
+# Author
+
+Christian Trabold <info@christian-trabold.de>

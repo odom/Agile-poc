@@ -1,0 +1,70 @@
+## For the breadcrumb cObject we use a HMENU of the type 'rootline'
+lib.nav.breadcrumb = COA
+lib.nav.breadcrumb {
+	10 = HMENU
+	10 {
+		wrap = <nav id="breadcrumb">|</nav>
+		## Select HMENU type 'special.rootline'
+		special = rootline
+
+		## Traverse the pagetree starting at the rootpage (0) and ending at the current page (-1)
+		special.range = 0|-1
+
+		## Pages which are excluded from the regular menus should still be shown in the breadcrumb
+		includeNotInMenu = 1
+
+		## This menu has only 1 level since this is a rootline-menu
+		1 = TMENU
+		1 {
+			wrap = <ul>|</ul>
+			NO {
+				stdWrap.htmlSpecialChars = 1
+				allWrap = <li class="first">|<i class="bread_crumb_bg"></i></li> |*| <li>|<i class="bread_crumb_bg"></i></li> |*| <li>|</li>
+			}
+		}
+	}
+}
+
+## This condition checks whether a news article will be shown in single view
+[globalVar = GP:tx_ttnews|tt_news > 0] && [globalVar = TSFE:id = {$plugin.tt_news.singlePid}]
+	lib.nav.breadcrumb {
+		## Render the current page as the normal state (linked) because we'll append the title of the news article
+		10.1 {
+			CUR = 1
+			CUR < .NO
+		}
+
+		## Append the title of the news item. Using this example, the breadcrumb can be exented with
+		## any other thinkable kind of data and logic
+		20 = RECORDS
+		20 {
+			dontCheckPid = 1
+			tables = tt_news
+			source.data = GP:tx_ttnews|tt_news
+			source.intval = 1
+			conf.tt_news = TEXT
+			conf.tt_news.field = title
+			wrap = <li class="last current">|</li>
+		}
+	}
+## Else configure the breadcrumb for normal cases when no news article is shown
+[else]
+
+	lib.nav.breadcrumb {
+		10.1 {
+			## Add alternative, unlinked configuration for current page, which is always the last item in the breadcrumb
+			CUR = 1
+			CUR.stdWrap.htmlSpecialChars = 1
+			CUR.allWrap = <li class="first">|<i class="bread_crumb_bg"></i></li> |*| <li>|<i class="bread_crumb_bg"></i></li> |*| <li class="last current">|</li>
+
+			## Do not wrap a link around this item
+			CUR.doNotLinkIt = 1
+		}
+	}
+
+[end]
+
+## no breadcrumb for the very root
+[treeLevel = 0]
+	lib.nav.breadcrumb >
+[end]

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for the Box Model extension in the FRONTEND</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<!-- General -->
+			<label index="powered_by">Web Essentials</label>
+			<label index="powered_by_link">http://www.web-essentials.asia/</label>
+			<label index="copyright_note">© ###YEAR### boxmodel. powered by ###POWERED_BY###</label>
+			<label index="search">Search...</label>
+			<label index="sitetitle">Box Model</label>
+			<label index="home">Home</label>
+		</languageKey>
+		<languageKey index="km" type="array">
+			<!-- General -->
+			<label index="powered_by">Web Essentials</label>
+			<label index="powered_by_link">http://www.web-essentials.asia/</label>
+			<label index="copyright_note">© ###YEAR### boxmodel. powered by ###POWERED_BY###</label>
+			<label index="search">ស្វែងរក...</label>
+			<label index="sitetitle">Box Model</label>
+			<label index="home">ទំព័រដើម</label>
+		</languageKey>
+	</data>
+</T3locallang>
