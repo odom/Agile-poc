@@ -10,10 +10,10 @@ return array(
 		'versionNumberInFilename' => 'embed',
 	),
 	'DB' => array(
-		'database' => 'dev-012-709',
+		'database' => 'local-012-709',
 		'host' => 'localhost',
-		'password' => '3NGvBdrCRmTcwwllnNVZX5lV7',
-		'username' => 'dev-012-709',
+		'password' => 'ess:3',
+		'username' => 'root',
 	),
 	'EXT' => array(
 		'extConf' => array(
