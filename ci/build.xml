@@ -1,0 +1,374 @@
+<?xml version="1.0"?>
+<!--
+    Phing build file to copy content and config data from server to local client machine.
+-->
+
+<project name="base" basedir="." default="help-quick"  description="Continous Integration and Publishing for Local Machine">
+
+	<!-- DEFAULT PROPERTIES FOR OLD PROPERTY FILES (Overriden in new Versions)  -->
+	<property name="content.directories" value="uploads/, fileadmin/user_upload/" />
+	
+    <!-- PROPERTIES -->
+    <property name="dryRun" value="false" />
+    <property name="backup" value="true" />
+    <property name="updateRepository" value="true" />
+    <property file="config/local.properties" />
+	<property file="config/project.server.properties" />
+    <property file="config/project.properties" />
+    <path id="phingClasses">
+        <pathelement dir="${local.classes}"/>
+    </path>
+    
+    <!-- TASK DEFINITION -->
+    <taskdef name="rsync" classname="Rsync" classpathref="phingClasses"/>
+    <taskdef name="dumpImport" classname="DumpImport" classpathref="phingClasses"/>
+    <taskdef name="dumpExport" classname="DumpExport" classpathref="phingClasses"/>
+    <taskdef name="commandMySql" classname="CommandMySql" classpathref="phingClasses"/>
+    <taskdef name="command" classname="Command" classpathref="phingClasses"/>
+    <taskdef name="createSettingsFile" classname="CreateSettingsFile" classpathref="phingClasses"/>
+    <taskdef name="svnCheckoutTask" classname="SvnCheckout" classpathref="phingClasses"/>
+    <taskdef name="createMagentoLocalFile" classname="CreateMagentoLocalFile" classpathref="phingClasses"/>
+    
+    <!--
+        ==============================================
+        Default entry point
+        ==============================================
+    -->
+
+    <target name="help-quick">
+        <command command="cat ${local.readme}-quick" logTaskName="false" />
+    </target>
+
+    <target name="help">
+        <command command="cat ${local.readme}" logTaskName="false" />
+    </target>
+    
+    
+    <!--
+        ==============================================
+        Loading Properties
+        ==============================================
+    -->
+    
+    <target name="update-server-properties">
+	    <echo>CLIENT: Fetching properties from Admin...</echo>
+        <command 
+            credentials="${admin.credentials}"
+            command="cd ${admin.phing}config; sed '/password/d' project.properties | sed '/credentials/d' > project.properties.tmp" />
+	    <rsync
+	        rsyncCredentialsSource="${admin.credentials}"
+	        source="${admin.phing}config/project.properties.tmp"
+	        target="config/project.server.properties" />
+	    <property file="config/project.server.properties" override="true"/>
+    </target>
+    
+    
+	<target name="update-master-properties">
+        <echo>CLIENT: Fetching Master-Properties from Admin...</echo>
+        <rsync
+            rsyncCredentialsSource="${admin.credentials}"
+            source="${admin.phing}config/master.properties"
+            target="config/master.properties" />
+        <property file="config/master.properties" override="true" />
+    </target>
+    
+
+    <!--
+        ==============================================
+        Config/Content Master
+        ==============================================
+    -->
+
+    <target name="print-config-master" depends="update-master-properties">
+        <echo>CONFIG-MASTER: ${master.config}</echo>
+    </target>
+
+
+    <target name="print-content-master" depends="update-master-properties">
+        <echo>CONTENT-MASTER: ${master.content}</echo>
+    </target>
+
+
+    <target name="status-config">
+        <command
+            credentials="${admin.credentials}"
+            command="cd ${admin.phing}; phing status-config -Dinteractive=false" />
+    </target>
+
+
+    <!--
+        ==============================================
+        Config Setup
+        ==============================================
+    -->
+    
+    <target name="initialize" depends="update-server-properties, create-directories, svn-checkout, create-symlink, create-settings, initialize-db, chmod-site"/>
+
+    
+    <target name="create-directories" depends="update-server-properties">
+        <echo>CLIENT: Create directories...</echo>
+        <command
+            command="mkdir ${project.path.backup} ${project.path.backup}database ${project.path.backup}files"/>
+		<foreach list="${content.directories}" param="path" target="create-directories-backup-content" />
+    </target>
+	
+	<target name="create-directories-backup-content">
+		<command command="mkdir -p ${project.path.backup}files/${path}"/>
+	</target>	
+	
+
+    <target name="create-settings">
+        <echo>CLIENT: Create settings.php...</echo>
+        <createSettingsFile
+            directory="${project.path.site}typo3conf/"
+            template="${local.templates}settings.php"
+            siteName="${project.name}"
+            database="${project.database.name}"
+            username="${project.database.username}"
+            password="${project.database.password}"
+            host="${project.database.host}"/>
+    </target>
+
+
+    <target name="create-symlink">
+        <echo>CLIENT: Creating symlink...</echo>
+        <command
+            command="rm -f ${project.path.site}typo3_src; ln -s ${project.path.core} ${project.path.site}typo3_src;"/>
+    </target>
+
+
+    <target name="initialize-db">
+        <echo>CLIENT: Initialize database...</echo>
+        <foreach list="${project.database.dumbs.initialize}" param="sql.script" target="execute-sql-script" />
+    </target>
+
+
+    <target name="chmod-site">
+        <echo>CLIENT: Set chmod 777 for ${project.path.site}...</echo>
+        <command
+            command="chmod -R 777 ${project.path.site}"/>
+    </target>
+
+
+    <!--
+        ==============================================
+        Config SVN
+        ==============================================
+    -->
+
+    <target name="svn-checkout" depends="update-server-properties">
+        <echo>CLIENT: Checking out files...</echo>
+        <svnCheckoutTask 
+            directory="${project.path.site}"
+            repository="${svn.repository}"/>
+    </target>
+
+
+    <!--
+        ==============================================
+        Content General
+        ==============================================
+    -->
+
+    <target name="update-content-complete">
+        <echo>THIS COMMAND IS DEPRECATED, USE phing update-content INSTEAD.</echo>
+    </target>
+    <target name="update-content" depends="update-content-files, update-content-db"/>
+    <target name="update-content-repository" depends="update-content-repository-files, update-content-repository-db"/>
+    <target name="backup-content" depends="backup-content-files, backup-content-db"/>
+    <target name="restore-content" depends="restore-content-files, restore-content-db"/>
+
+
+	<target name="load-content-source" depends="update-master-properties">
+		<if>
+			<or>
+				<equals arg1="${contentSource}" arg2="dev" />
+				<equals arg1="${contentSource}" arg2="latest" />
+				<equals arg1="${contentSource}" arg2="demo" />
+				<equals arg1="${contentSource}" arg2="live" />
+			</or>
+			<then>
+				<echo>NOTE: Content-Source is overriden by parameter. Content-Master setting is not used.</echo>
+				<property name="source.content" value="${contentSource}" />
+			</then>
+			<else>
+				<echo>NOTE: Content-Source is Content-Master</echo>
+				<property name="source.content" value="${master.content}" />
+			</else>
+		</if>
+	</target>
+	
+
+    <!--
+        ==============================================
+        Content Files
+        ==============================================
+    -->
+
+    <target name="update-content-repository-files" depends="load-content-source">
+        <if>
+            <equals arg1="${updateRepository}" arg2="false" />
+            <then>
+                <echo>ADMIN: content-repository files are not updated. Disabled by parameter.</echo>
+            </then>
+            <else>
+                <command
+                    credentials="${admin.credentials}"
+                    command="cd ${admin.phing}; phing update-content-repository-files -Dinteractive=false -DcontentSource=${source.content}" />
+            </else>
+        </if>
+    </target>
+
+
+    <target name="update-content-files" depends="update-server-properties, backup-content-files, update-content-repository-files">
+		<echo>CLIENT: Updating content files...</echo>
+		<foreach list="${content.directories}" param="path" target="update-content-files-rsync" />
+    </target>
+
+	<target name="update-content-files-rsync">
+		<echo>CLIENT: Fetching files from Admin's Content-Repository... [${path}]</echo>
+		<rsync
+			rsyncCredentialsSource="${admin.credentials}"
+			source="${admin.phing}${admin.repository.content}files/${path}"
+			target="${project.path.site}${path}" />
+        <echo>CLIENT: Set chmod 755 for files... [${path}]</echo>
+        <command command="chmod -R 755 ${project.path.site}${path}"/>
+	</target>
+    
+
+
+    <target name="backup-content-files" depends="update-server-properties">
+        <if>
+            <equals arg1="${backup}" arg2="false" />
+            <then>
+                <echo>CLIENT: No File backup. Backup is disabled by parameter.</echo>
+            </then>
+            <else>
+				<foreach list="${content.directories}" param="path" target="backup-content-files-rsync" />
+            </else>
+        </if>
+    </target>
+
+	<target name="backup-content-files-rsync">
+		<echo>CLIENT: Backuping files... [${path}]</echo>
+		<rsync
+			source="${project.path.site}${path}"
+			target="${project.path.backup}files/${path}" />
+	</target>
+
+
+    <target name="restore-content-files" depends="update-server-properties">
+		<foreach list="${content.directories}" param="path" target="restore-content-files-rsync" />
+    </target>
+    
+    <target name="restore-content-files-rsync">
+		<echo>CLIENT: Restoring files... [${path}]</echo>
+		<rsync
+			source="${project.path.backup}files/${path}"
+			target="${project.path.site}${path}" />
+    </target>
+
+
+    <!--
+        ================================================
+        Content Database
+        ================================================
+    -->
+
+    <target name="update-content-db" depends="backup-content-db, update-content-repository-db, fetch-content-repository-db, import-content-db" />
+    <target name="restore-content-db" depends="update-server-properties, fetch-content-backup-db, import-content-db" />
+
+
+    <target name="execute-sql-script">
+        <echo>CLIENT: Execute '${sql.script}'...</echo>
+        <commandMySql
+            database="${project.database.name}"
+            username="${project.database.username}"
+            password="${project.database.password}"
+            host="${project.database.host}"
+            command="&lt; ${sql.script}"/>
+    </target>
+
+
+    <target name="update-content-repository-db" depends="load-content-source">
+        <if>
+            <equals arg1="${updateRepository}" arg2="false" />
+            <then>
+                <echo>ADMIN: content-repository database is not updated. Disabled by parameter.</echo>
+            </then>
+            <else>
+                <command
+                    credentials="${admin.credentials}"
+                    command="cd ${admin.phing}; phing update-content-repository-db -Dinteractive=false -DcontentSource=${source.content}" />
+            </else>
+        </if>
+    </target>
+
+
+    <target name="backup-content-db" depends="update-server-properties">
+        <if>
+            <equals arg1="${backup}" arg2="false" />
+            <then>
+                <echo>CLIENT: No Database backup. Backup is disabled by parameter.</echo>
+            </then>
+            <else>
+                <echo>CLIENT: Dumping database for backup...</echo>
+                <dumpExport
+                    directory="${project.path.backup}database/"
+                    name="${dump.name}"
+                    database="${project.database.name}"
+                    username="${project.database.username}"
+                    password="${project.database.password}"
+                    host="${project.database.host}"
+                    ignoreTables="${project.database.tables.ignore}"/>
+                <echo>CLIENT: Clean up environment...</echo>
+                        <command command="rm -f ${project.path.backup}database/${dump.name}.sql"/>
+            </else>
+        </if>
+    </target>
+
+
+    <target name="fetch-content-repository-db">
+        <echo>CLIENT: Fetching dump from Admin's content-repository...</echo>
+        <rsync
+            rsyncCredentialsSource="${admin.credentials}"
+            source="${admin.phing}${admin.repository.content}database/${dump.name}.bz2"
+            target="${local.tmp}" />
+    </target>
+
+
+    <target name="fetch-content-backup-db">
+        <echo>CLIENT: Fetching dump from backup folder...</echo>
+        <rsync
+            source="${project.path.backup}database/${dump.name}.bz2"
+            target="${local.tmp}" />
+    </target>
+
+
+    <target name="import-content-db" depends="load-content-source">
+        <echo>CLIENT: Import dump...</echo>
+        <dumpImport
+            directory="${local.tmp}"
+            name="${dump.name}"
+            database="${project.database.name}"
+            username="${project.database.username}"
+            password="${project.database.password}"
+            host="${project.database.host}"
+            protectTables="${project.database.tables.protect}"/>
+        <echo>CLIENT: Fine tunes database...</echo>
+        <commandMySql
+            database="${project.database.name}"
+            username="${project.database.username}"
+            password="${project.database.password}"
+            host="${project.database.host}"
+            command="-e &quot;UPDATE sys_domain SET domainName = REPLACE(domainName, '${${source.content}.domain}', '${project.domain}');
+                    UPDATE sys_template SET title = REPLACE(title, '${${source.content}.domain}', '${project.domain}');
+                    UPDATE sys_template SET config = REPLACE(config, '${${source.content}.domain}', '${project.domain}');
+                    UPDATE sys_template SET constants = REPLACE(constants, '${${source.content}.domain}', '${project.domain}');
+                                        UPDATE pages SET title = REPLACE(title, '${${source.content}.domain}', '${project.domain}');&quot;"/>    
+    <echo>CLIENT: Clean up environment...</echo>
+        <command command="rm -f ${local.tmp}${dump.name}.bz2"/>
+        <command command="rm -f ${local.tmp}${dump.name}.sql"/>
+    </target>
+
+</project>
