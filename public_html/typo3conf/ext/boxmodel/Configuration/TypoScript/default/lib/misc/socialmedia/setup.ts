@@ -29,14 +29,14 @@ lib.misc.socialmedia {
 	}
 	
 	## Linkedin
-	30 = TEXT
-	30 {
-		wrap = <li>|</li>
-		typolink.ATagParams = class = linkedin
-		typolink.parameter = {$const.socialmedia.linkedin.link}
-		typolink.title = {$const.socialmedia.linkedin.title}
-		typolink.extTarget = _blank
-		titleText = {$const.socialmedia.linkedin.title}
-		if.isTrue = {$const.socialmedia.linkedin.link}
-	}
+	#30 = TEXT
+	#30 {
+	#	wrap = <li>|</li>
+	#	typolink.ATagParams = class = linkedin
+	#	typolink.parameter = {$const.socialmedia.linkedin.link}
+	#	typolink.title = {$const.socialmedia.linkedin.title}
+	#	typolink.extTarget = _blank
+	#	titleText = {$const.socialmedia.linkedin.title}
+	#	if.isTrue = {$const.socialmedia.linkedin.link}
+	#}
 }

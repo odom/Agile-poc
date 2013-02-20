@@ -55,6 +55,7 @@ const.socialmedia.facebook {
 const.socialmedia.twitter {
 	link = http://www.twitter.com/w3essentials/
 	title = Twitter
+       
 }
 const.socialmedia.linkedin {
 	link = http://www.linkedin.com/company/web-essentials/

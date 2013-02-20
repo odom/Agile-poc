@@ -7,7 +7,7 @@ lib.footer {
 	10 =< lib.nav.footer
 	
 	## Social media
-	20 =< lib.misc.socialmedia
+	#20 =< lib.misc.socialmedia
 	
 	## Social media
 	30 =< lib.misc.copyright

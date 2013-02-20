@@ -477,3 +477,94 @@ a:hover,
 	position:relative;
 	z-index:0;
 }
+
+/*fixing style*/
+
+#brand-name {
+    float: left;
+    font-size: 50px;
+    margin-left: 0;
+    padding: 50px;
+    position: relative;
+    width: 250px;
+}
+
+ .social-media {
+	float: right;
+	padding: 0 20px 0 0;
+}
+
+.social-media ul {
+	float: right;
+}
+
+.social-media ul li {
+	float: left;
+	padding: 0 5px 0 0;
+}
+
+ .social-media ul li.last {
+	padding: 0;
+}
+
+.social-media a {
+	display: block;
+	text-indent: -9999px;
+}
+ .social-media a.facebook {
+	background: url("../images/sprite-icon.png") no-repeat scroll 0 0;
+	width: 33px;
+	height: 33px;
+}
+ .social-media a.twitter {
+	background: url("../images/sprite-icon.png") no-repeat scroll 0 -74px;
+	width: 33px;
+	height: 33px;
+}
+
+.social-media a.linkedin {
+	background: url("../images/sprite-icon.png") no-repeat scroll 0 -37px;
+	width: 33px;
+	height: 33px;
+}
+
+
+.social-media {
+    /*float: left!important;*/
+    width: 115px;
+    /*padding: 0 20px 0 0;*/
+}
+
+#wrapper #header .search, #wrapper #header .nav-lang {
+    /*clear: both;*/
+    /*float: left !important;*/
+    width: 190px;
+    /*margin: 0 !important;*/
+/*    padding: 0 20px 0 0;*/
+}
+
+.right-header {
+    /*float: right;*/
+    width: 250px;
+}
+
+/*imagebox style*/
+
+.image-box {
+   background: none repeat scroll 0 0 #FFFFFF;
+    border: 4px solid #FFFFFF;
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    margin: 0 0 60px;
+    position: relative;
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    float: left;
+    margin: 11px;
+    
+}
+div.image-box img {
+    width: 200px;
+    height: 160px;
+}

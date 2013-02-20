@@ -1,0 +1,17 @@
+/* 
+    Document   : fixing-style
+    Created on : Feb 20, 2013, 10:56:53 AM
+    Author     : tonglin
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+#brand-name {
+    float: left;
+    font-size: 50px;
+    margin-left: 0;
+    padding: 50px;
+    position: relative;
+    width: 250px;
+}
+

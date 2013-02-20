@@ -2,6 +2,10 @@
 page {
 	includeCSS {
 	reset = {$const.path.css}reset.css
+        reset = {$const.path.css}jquery.fancybox-buttons.css
+        reset = {$const.path.css}jquery.fancybox-thumbs.css
+        reset = {$const.path.css}jquery.fancybox.css
+        
 	reset {
 		media = all
 	}

@@ -3,7 +3,8 @@ lib.nav.footer {
 	wrap = <nav id="nav_footer">|</nav>
 
 	special = directory
-	special.value = {$const.page.pid.footer}
+	#special.value = {$const.page.pid.footer}
+        special.value = {$const.page.root}
 
 	1 = TMENU
 	1 {
