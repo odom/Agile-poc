@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3DataStructure>
+	<meta type="array">
+		<noEditOnCreation>1</noEditOnCreation>
+		<langDisable>1</langDisable>
+		<default type="array">
+			<TCEForms type="array">
+				<sys_language_uid>-1</sys_language_uid>
+			</TCEForms>
+		</default>
+	</meta>
+	<ROOT type="array">
+		<tx_templavoila type="array">
+			<title>ROOT</title>
+			<description>Select the HTML element on the page which you want to be the overall container element for the template.</description>
+		</tx_templavoila>
+		<type>array</type>
+		<el type="array">
+			<image type="array">
+				<tx_templavoila type="array">
+					<title>Image</title>
+					<sample_data type="array">
+						<numIndex index="0"></numIndex>
+					</sample_data>
+					<eType>imagefixed</eType>
+					<TypoScript>
+10 = IMAGE
+10.file.XY = 200,150
+10.file.import = uploads/tx_templavoila/
+10.file.import.current = 1
+10.file.import.listNum = 0
+10.file.maxW = 200
+10.file.minW = 200
+10.file.maxH = 150
+10.file.minH = 150</TypoScript>
+					<preview></preview>
+				</tx_templavoila>
+				<TCEforms type="array">
+					<label>Image</label>
+					<config type="array">
+						<type>group</type>
+						<internal_type>file</internal_type>
+						<allowed>gif,png,jpg,jpeg</allowed>
+						<max_size>1000</max_size>
+						<uploadfolder>uploads/tx_templavoila</uploadfolder>
+						<show_thumbs>1</show_thumbs>
+						<size>1</size>
+						<maxitems>1</maxitems>
+						<minitems>0</minitems>
+					</config>
+				</TCEforms>
+			</image>
+			<imageinfo type="array">
+				<tx_templavoila type="array">
+					<title>image_info</title>
+					<sample_data type="array">
+						<numIndex index="0"></numIndex>
+					</sample_data>
+					<eType>rte</eType>
+					<TypoScript><![CDATA[
+10 = TEXT
+10.current = 1
+10.parseFunc = < lib.parseFunc_RTE]]></TypoScript>
+					<preview></preview>
+				</tx_templavoila>
+				<TCEforms type="array">
+					<label>image_info</label>
+					<config type="array">
+						<type>text</type>
+						<cols>48</cols>
+						<rows>5</rows>
+						<softref>rtehtmlarea_images,typolink_tag,images,email[subst],url</softref>
+					</config>
+					<defaultExtras>richtext:rte_transform[flag=rte_enabled|mode=ts_css]</defaultExtras>
+				</TCEforms>
+			</imageinfo>
+		</el>
+	</ROOT>
+</T3DataStructure>

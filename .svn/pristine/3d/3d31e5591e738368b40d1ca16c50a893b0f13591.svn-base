@@ -1,2 +1,0 @@
-<INCLUDE_TYPOSCRIPT: source="FILE: EXT:boxmodel/Configuration/TypoScript/default/constants.ts">
-<INCLUDE_TYPOSCRIPT: source="FILE: EXT:boxmodel/Configuration/TypoScript/custom/constants.ts">
