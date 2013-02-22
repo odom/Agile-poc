@@ -11,7 +11,7 @@
 			<label index="powered_by_link">http://www.web-essentials.asia/</label>
 			<label index="copyright_note">© ###YEAR### boxmodel. powered by ###POWERED_BY###</label>
 			<label index="search">Search...</label>
-			<label index="sitetitle">Box Model</label>
+			<label index="sitetitle">Agile-poc</label>
 			<label index="home">Home</label>
 		</languageKey>
 		<languageKey index="km" type="array">
@@ -20,7 +20,7 @@
 			<label index="powered_by_link">http://www.web-essentials.asia/</label>
 			<label index="copyright_note">© ###YEAR### boxmodel. powered by ###POWERED_BY###</label>
 			<label index="search">ស្វែងរក...</label>
-			<label index="sitetitle">Box Model</label>
+			<label index="sitetitle">Agile-poc</label>
 			<label index="home">ទំព័រដើម</label>
 		</languageKey>
 	</data>

@@ -55,6 +55,11 @@
 	background-image: url('../../typo3conf/ext/templavoila/icon_fce_ce.png') !important;
 }
 	
+.t3-icon-pages-contains-formlogs {
+	background-position: 0px 0px !important;
+	background-image: url('../../typo3conf/ext/formhandler/Resources/Images/pagetreeicon.png') !important;
+}
+	
 .t3-icon-sys_filemounts-default {
 	background-position: 0px 0px !important;
 	background-image: url('../../typo3/sysext/t3skin/icons/gfx/i/_icon_ftp_2.gif') !important;
@@ -128,5 +133,10 @@
 .t3-icon-tx_tqseo_setting_root-default {
 	background-position: 0px 0px !important;
 	background-image: url('../../typo3/sysext/t3skin/icons/gfx/i/page') !important;
+}
+	
+.t3-icon-tx_formhandler_log-default {
+	background-position: 0px 0px !important;
+	background-image: url('../../typo3conf/ext/formhandler/ext_icon.gif') !important;
 }
 	

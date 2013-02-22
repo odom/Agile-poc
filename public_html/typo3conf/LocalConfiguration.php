@@ -19,6 +19,7 @@ return array(
 		'extConf' => array(
 			'boxmodel' => 'a:12:{s:19:"enableDeveloperMode";s:1:"0";s:25:"enableDefaultPageTSconfig";s:1:"1";s:25:"enableDefaultUserTSconfig";s:1:"1";s:18:"enableMinimizedRTE";s:1:"1";s:18:"beCompressionLevel";s:1:"5";s:18:"feCompressionLevel";s:1:"5";s:24:"disableTsTemplateEditing";s:1:"1";s:15:"dontCompressCss";s:1:"0";s:14:"dontCompressJs";s:1:"0";s:18:"dontConcatenateCss";s:1:"0";s:17:"dontConcatenateJs";s:1:"0";s:28:"dontMoveJsFromHeaderToFooter";s:1:"0";}',
 			'crawler' => 'a:15:{s:9:"sleepTime";s:4:"1000";s:16:"sleepAfterFinish";s:2:"10";s:11:"countInARun";s:3:"100";s:14:"purgeQueueDays";s:2:"14";s:12:"processLimit";s:1:"1";s:17:"processMaxRunTime";s:3:"300";s:14:"maxCompileUrls";s:5:"10000";s:12:"processDebug";s:1:"0";s:16:"crawlHiddenPages";s:1:"0";s:7:"phpPath";s:12:"/usr/bin/php";s:14:"enableTimeslot";s:1:"1";s:11:"logFileName";s:0:"";s:9:"follow30x";s:1:"0";s:18:"makeDirectRequests";s:1:"0";s:16:"frontendBasePath";s:1:"/";}',
+			'formhandler' => 'a:0:{}',
 			'indexed_search' => 'a:18:{s:8:"pdftools";s:9:"/usr/bin/";s:8:"pdf_mode";s:2:"20";s:5:"unzip";s:9:"/usr/bin/";s:6:"catdoc";s:9:"/usr/bin/";s:6:"xlhtml";s:9:"/usr/bin/";s:7:"ppthtml";s:9:"/usr/bin/";s:5:"unrtf";s:9:"/usr/bin/";s:9:"debugMode";s:1:"0";s:18:"fullTextDataLength";s:1:"0";s:23:"disableFrontendIndexing";s:1:"1";s:21:"enableMetaphoneSearch";s:1:"1";s:6:"minAge";s:2:"24";s:6:"maxAge";s:1:"0";s:16:"maxExternalFiles";s:1:"5";s:26:"useCrawlerForExternalFiles";s:1:"1";s:11:"flagBitMask";s:3:"192";s:16:"ignoreExtensions";s:0:"";s:17:"indexExternalURLs";s:1:"0";}',
 			'realurl' => 'a:5:{s:10:"configFile";s:0:"";s:14:"enableAutoConf";s:1:"1";s:14:"autoConfFormat";s:1:"0";s:12:"enableDevLog";s:1:"0";s:19:"enableChashUrlDebug";s:1:"0";}',
 			'saltedpasswords' => 'a:2:{s:3:"FE.";a:2:{s:7:"enabled";s:1:"1";s:21:"saltedPWHashingMethod";s:28:"tx_saltedpasswords_salts_md5";}s:3:"BE.";a:2:{s:7:"enabled";s:1:"1";s:21:"saltedPWHashingMethod";s:28:"tx_saltedpasswords_salts_md5";}}',
@@ -83,6 +84,7 @@ return array(
 			'tq_seo',
 			'realurl',
 			'boxmodel',
+			'formhandler',
 		),
 		'extList_FE' => 'extbase,css_styled_content,version,install,rtehtmlarea,t3skin,felogin,form,rsaauth,saltedpasswords,fluid,workspaces,static_info_tables,feedit,templavoila,crawler,indexed_search,tq_seo,realurl,boxmodel',
 	),

@@ -568,3 +568,97 @@ div.image-box img {
     width: 200px;
     height: 160px;
 }
+
+
+/*site-map*/
+ul.csc-menu>li>a {
+     list-style: circle !important;
+     line-height: 1.5;
+     font-size: 13px !important;
+     color: #38C1D6 !important;
+}
+
+ul.csc-menu>li>a:hover,
+ul.csc-menu>li>a:focus,
+ul.csc-menu>li>a:visited {
+    text-decoration: underline;
+}
+ul.csc-menu {
+     list-style: circle !important;
+     line-height: 1.5;
+     font-size: 13px !important;
+     color: #38C1D6 !important;
+     margin-left: 20px;
+}
+
+/*searching*/
+.tx-indexedsearch-searchbox-button {
+    border: 1px solid #CCCCCC;
+    float: left;
+    font-size: 11px;
+    height: 26px;
+    margin-left: 172px;
+    margin-top: -36px;
+    position: absolute;
+    width: 63px !important;
+}
+
+.tx-indexedsearch-title:hover {
+    text-decoration: underline;
+}
+
+
+.tx-indexedsearch-path {
+    text-decoration: underline;
+}
+
+
+#fancybox-loading, 
+.fancybox-close, 
+.fancybox-prev span, 
+.fancybox-next span {
+    background-image: url("../images/fancybox_sprite.png") !important;
+}
+
+/*Formhandler fixing style*/
+.cform {
+    margin-left: 50px;
+}
+.type-button {
+    margin-left: 124px;
+    padding-top: 5px;
+    
+}
+
+.button {
+    border: 1px solid #CCCCCC;
+    font-size: 11px;
+    height: 25px;
+    width: 80px;
+}
+
+#name {
+    margin-left: 30px;
+    border: 1px solid #CCCCCC;
+    font-size: 11px;
+    height: 20px;
+}
+#email{
+    margin-left: 32px;
+    border: 1px solid #CCCCCC;
+    font-size: 11px;
+    height: 20px;
+}
+#message {
+    margin-left: 13px;
+    border: 1px solid #CCCCCC;
+    font-size: 11px;
+}
+.text_label{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.text_label>.type-text>label {
+    float: left;
+    margin-top: 2px;   
+}

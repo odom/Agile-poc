@@ -1,5 +1,5 @@
-config.index_enable = 0
-config.index_externals = 0
+config.index_enable = 1
+config.index_externals = 1
 config.index_metatags = 1
 
  # Plugin configuration
@@ -14,7 +14,7 @@ plugin.tx_indexedsearch {
 		displayAdvancedSearchLink = 1
 
 		# show the number of results
-		displayResultNumber = 0
+		displayResultNumber = 1
 
 		# show the parse times
 		displayParsetimes = 0

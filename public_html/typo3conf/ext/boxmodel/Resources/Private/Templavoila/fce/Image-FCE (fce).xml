@@ -23,17 +23,31 @@
 						<numIndex index="0"></numIndex>
 					</sample_data>
 					<eType>imagefixed</eType>
-					<TypoScript>
-10 = IMAGE
+					<TypoScript>10 = IMAGE
 10.file.XY = 200,150
 10.file.import = uploads/tx_templavoila/
 10.file.import.current = 1
 10.file.import.listNum = 0
+10 {
+	stdWrap {
+		typolink {
+		  parameter.cObject = IMG_RESOURCE
+      		  parameter.cObject.file.import.data = TSFE:lastImageInfo|origFile
+     		  ATagParams = class = fancybox
+     		  ATagParams.insertData = 1
+		}
+	}
+}
 10.file.maxW = 200
 10.file.minW = 200
 10.file.maxH = 150
 10.file.minH = 150</TypoScript>
 					<preview></preview>
+					<proc type="array">
+						<int>0</int>
+						<HSC>0</HSC>
+						<stdWrap></stdWrap>
+					</proc>
 				</tx_templavoila>
 				<TCEforms type="array">
 					<label>Image</label>

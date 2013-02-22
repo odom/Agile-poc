@@ -78,6 +78,7 @@ return array (
     'tx_realurl_pathcache' => 'cache_id',
     'tx_realurl_uniqalias' => 'uid',
     'tx_realurl_redirects' => 'uid',
+    'tx_formhandler_log' => 'uid',
   ),
   'fieldTypes' => 
   array (
@@ -8727,6 +8728,67 @@ return array (
         'default' => '\'0\'',
       ),
     ),
+    'tx_formhandler_log' => 
+    array (
+      'uid' => 
+      array (
+        'type' => 'int',
+        'metaType' => 'I8',
+        'notnull' => 0,
+      ),
+      'pid' => 
+      array (
+        'type' => 'int',
+        'metaType' => 'I8',
+        'notnull' => 1,
+        'default' => '\'0\'',
+      ),
+      'tstamp' => 
+      array (
+        'type' => 'int',
+        'metaType' => 'I8',
+        'notnull' => 1,
+        'default' => '\'0\'',
+      ),
+      'crdate' => 
+      array (
+        'type' => 'int',
+        'metaType' => 'I8',
+        'notnull' => 1,
+        'default' => '\'0\'',
+      ),
+      'ip' => 
+      array (
+        'type' => 'tinytext',
+        'metaType' => 'C',
+        'notnull' => 0,
+      ),
+      'params' => 
+      array (
+        'type' => 'text',
+        'metaType' => 'XL',
+        'notnull' => 0,
+      ),
+      'is_spam' => 
+      array (
+        'type' => 'int',
+        'metaType' => 'I8',
+        'notnull' => 0,
+        'default' => '\'0\'',
+      ),
+      'key_hash' => 
+      array (
+        'type' => 'tinytext',
+        'metaType' => 'C',
+        'notnull' => 0,
+      ),
+      'unique_hash' => 
+      array (
+        'type' => 'tinytext',
+        'metaType' => 'C',
+        'notnull' => 0,
+      ),
+    ),
   ),
   'primaryKeys' => 
   array (
@@ -8824,6 +8886,7 @@ return array (
     'tx_realurl_urlencodecache' => 'url_hash',
     'tx_realurl_errorlog' => 'url_hash,rootpage_id',
     'tx_realurl_redirects' => 'uid',
+    'tx_formhandler_log' => 'uid',
   ),
 );
-#1361416860    t3lib_db192292    
+#1361536376    t3lib_db193612    

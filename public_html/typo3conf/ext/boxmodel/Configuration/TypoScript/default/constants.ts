@@ -37,11 +37,11 @@ const.logo.width = 230
 const.path.jQueryVersion = 1.8.1
 ## deprecated: moved to EXT:boxmodel/Configuration/TSConfig/misc/default_css_js_optimization.ts
 ## can be configured from EM from now on
-const.compressCss = 1
-const.compressJs = 1
-const.concatenateCss = 1
-const.concatenateJs = 1
-const.moveJsFromHeaderToFooter = 1
+const.compressCss = 0
+const.compressJs = 0
+const.concatenateCss = 0
+const.concatenateJs = 0
+const.moveJsFromHeaderToFooter = 0
 
 ## Language
 const.language.label.english = English

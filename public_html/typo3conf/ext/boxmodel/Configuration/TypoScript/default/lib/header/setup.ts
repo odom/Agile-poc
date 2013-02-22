@@ -9,7 +9,7 @@ lib.header {
 	## logo
 	#20 =< lib.misc.logo
         20= TEXT
-        20.value=<h1 id="brand-name">Agile Poc</h1>
+        20.value=<a href="http://local.agile-poc/"><h1 id="brand-name">Agile Poc</h1></a>
 	## header
 	30 = COA
 	30 {
