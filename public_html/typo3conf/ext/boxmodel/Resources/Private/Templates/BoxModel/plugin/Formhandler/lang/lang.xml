@@ -15,12 +15,12 @@
 	
 			<label index="greetings">Dear</label>
 			<label index="email_user_subject">Your contact request</label>
-			<label index="email_user_text">We have received your request via the contact form on www.khmerdragontravels.com
+			<label index="email_user_text">We have received your request via the contact form on http://local.agile-poc
 . We will process your request and get in contact with you soon.</label>
 			<label index="email_user_footer">---------------------------------- This message was created automatically. --------------------------------</label>
 
 			<label index="email_admin_subject">Contact request</label>
-			<label index="email_admin_text">A user filled out the contact form on www.khmerdragontravels.com
+			<label index="email_admin_text">A user filled out the contact form on http://local.agile-poc
 .</label>
 			<label index="email_admin_footer">---------------------------------- This message was created automatically. --------------------------------</label>
 
